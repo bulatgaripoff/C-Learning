@@ -23,15 +23,14 @@ namespace Notebook_structures
         /// <summary>
         /// Массив с дефолтными заголовками
         /// </summary>
-        string[] titles=new string[] {"ID", "ФИО", "Дата записи", "Возраст", "Рост", "Дата рождения", "Место рождения"};
+        private string[] titles = {"ID", "ФИО", "Дата записи", "Возраст", "Рост", "Дата рождения", "Место рождения"};
 
         /// <summary>
         /// ХЗ что такое
         /// </summary>
         public Repository(string Path)
         {
-            this.path = Path;
-            this.titles = new string[7];
+           path = Path;
         }
 
         /// <summary>
@@ -84,12 +83,31 @@ namespace Notebook_structures
             }
             else
             {
-                foreach (string title in titles)
-                {
-                    Console.Write($"{title} ");
-                }
+                //foreach (string title in titles)
+                //{
+                //    Console.Write($"{title} ");
+                //}
                 Console.WriteLine("Файл отсутствует!");
             }
+        }
+
+        /// <summary>
+        /// Методы для вывода в консоль заголовков
+        /// </summary>
+        public void PrintTitles()
+        {
+            for (int i=0; i<titles.Length; i++)
+            {
+                if (i==0 | i==3 | i==4)
+                {
+                    Console.Write($"{titles[i],-5} ");
+                }    
+                else if (i==6)
+                    Console.Write($"{titles[i],-17} ");
+                else
+                    Console.Write($"{titles[i],-14} ");
+            }
+            Console.WriteLine();
         }
 
         /// <summary>
@@ -101,7 +119,7 @@ namespace Notebook_structures
             {
                 foreach (Worker worker in workers)
                 {
-                    Console.WriteLine(worker.ToString());
+                    Console.WriteLine(worker.ToStringConsole());
                 }
             }
             else Console.WriteLine("Записи отсутствуют!");   
@@ -116,7 +134,7 @@ namespace Notebook_structures
             {
                 foreach (Worker worker in workers)
                 {
-                    sw.WriteLine(worker.ToString());
+                    sw.WriteLine(worker.ToStringFile());
                 }
             }
         }
@@ -136,37 +154,37 @@ namespace Notebook_structures
                 case "1":
                     var orderedworkers1 = from worker in workers orderby worker.ID select worker;
                     foreach (Worker worker in orderedworkers1)
-                        Console.WriteLine(worker.ToString());
+                        Console.WriteLine(worker.ToStringConsole());
                     break;
                 case "2":
                     var orderedworkers2 = from worker in workers orderby worker.FullName select worker;
                     foreach (Worker worker in orderedworkers2)
-                        Console.WriteLine(worker.ToString());
+                        Console.WriteLine(worker.ToStringConsole());
                     break;
                 case "3":
                     var orderedworkers3 = from worker in workers orderby worker.Date select worker;
                     foreach (Worker worker in orderedworkers3)
-                        Console.WriteLine(worker.ToString());
+                        Console.WriteLine(worker.ToStringConsole());
                     break;
                 case "4":
                     var orderedworkers4 = from worker in workers orderby worker.Age select worker;
                     foreach (Worker worker in orderedworkers4)
-                        Console.WriteLine(worker.ToString());
+                        Console.WriteLine(worker.ToStringConsole());
                     break;
                 case "5":
                     var orderedworkers5 = from worker in workers orderby worker.Height select worker;
                     foreach (Worker worker in orderedworkers5)
-                        Console.WriteLine(worker.ToString());
+                        Console.WriteLine(worker.ToStringConsole());
                     break;
                 case "6":
                     var orderedworkers6 = from worker in workers orderby worker.BirthDate select worker;
                     foreach (Worker worker in orderedworkers6)
-                        Console.WriteLine(worker.ToString());
+                        Console.WriteLine(worker.ToStringConsole());
                     break;
                 case "7":
                     var orderedworkers7 = from worker in workers orderby worker.BirthPlace select worker;
                     foreach (Worker worker in orderedworkers7)
-                        Console.WriteLine(worker.ToString());
+                        Console.WriteLine(worker.ToStringConsole());
                     break;
             }
                 

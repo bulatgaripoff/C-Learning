@@ -25,6 +25,7 @@ namespace Notebook_structures
                         string path = @"notebook.txt";
                         Repository notebook = new Repository(path);
                         notebook.Load();
+                        notebook.PrintTitles();
                         notebook.PrintToConsole();
                         Console.WriteLine($"\nВсего записей: {notebook.Count}\n");
 
