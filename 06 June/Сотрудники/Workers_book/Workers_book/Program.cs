@@ -12,7 +12,7 @@ namespace Notebook_structures
     {
         static void Main(string[] args)
         {
-            while (true)
+            while (true) // убрать меню из классов, меню сделать отдельным
             {
                 Console.Clear();
                 Console.SetCursorPosition(Console.WindowWidth / 4, 0);
@@ -23,7 +23,7 @@ namespace Notebook_structures
                     case "1":
                         Console.Clear();
                         string path = @"notebook.txt";
-                        Repository notebook = new Repository(path);
+                        Repository notebook = new Repository(path); // инициализировать до циклов
                         notebook.Load();
                         notebook.PrintTitles();
                         notebook.PrintToConsole();
@@ -38,11 +38,12 @@ namespace Notebook_structures
                                 Console.WriteLine("4 - Сортировка");
                                 Console.WriteLine("5 - Выход");
 
-                            switch (Console.ReadLine())
+                            switch (Console.ReadLine()) // добавить дефолт
                                 {
                                     case "1":
                                         notebook.Add();
                                         Console.Clear();
+                                        notebook.PrintTitles();
                                         notebook.PrintToConsole();
                                         Console.WriteLine($"\nВсего записей: {notebook.Count}\n");
                                         break;
@@ -53,6 +54,7 @@ namespace Notebook_structures
                                     case "3":
                                         notebook.Remove();
                                         Console.WriteLine("Запись успешно удалена!");
+                                        notebook.PrintTitles();
                                         notebook.PrintToConsole();
                                         Console.WriteLine($"\nВсего записей: {notebook.Count}\n");
                                         break;

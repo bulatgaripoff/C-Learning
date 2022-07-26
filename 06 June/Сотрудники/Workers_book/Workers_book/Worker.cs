@@ -1,53 +1,47 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-
 
 namespace Notebook_structures
 {
     class Worker
     {
-        #region Поля
+        //#region Поля
 
-        /// <summary>
-        /// ID работника
-        /// </summary>
-        private int id;
+        ///// <summary>
+        ///// ID работника
+        ///// </summary>
+        //private int id;
 
-        /// <summary>
-        /// ФИО работника
-        /// </summary>
-        private string fullname;
+        ///// <summary>
+        ///// ФИО работника
+        ///// </summary>
+        //private string fullname;
 
-        /// <summary>
-        /// Дата записи
-        /// </summary>
-        private DateTime date;
+        ///// <summary>
+        ///// Дата записи
+        ///// </summary>
+        //private DateTime date;
 
-        /// <summary>
-        /// Возраст работника
-        /// </summary>
-        private int age;
+        ///// <summary>
+        ///// Возраст работника
+        ///// </summary>
+        //private int age;
 
-        /// <summary>
-        /// Рост работника
-        /// </summary>
-        private int height;
+        ///// <summary>
+        ///// Рост работника
+        ///// </summary>
+        //private int height;
 
-        /// <summary>
-        /// Дата рождения работника
-        /// </summary>
-        private DateTime birthdate;
+        ///// <summary>
+        ///// Дата рождения работника
+        ///// </summary>
+        //private DateTime birthdate;
 
-        /// <summary>
-        /// Место рождения работника
-        /// </summary>
-        private string birthplace;
+        ///// <summary>
+        ///// Место рождения работника
+        ///// </summary>
+        //private string birthplace;
 
-        #endregion
+        //#endregion
 
         #region Конструкторы
 
@@ -61,15 +55,15 @@ namespace Notebook_structures
         /// <param name="height">Рост</param>
         /// <param name="birthdate">Дата рождения</param>
         /// <param name="birthplace">Место рождения</param>
-        public Worker(int id, string fullname, DateTime date, int age, int height, DateTime birthdate, string birthplace)
+        public Worker(int ID, string FullName, DateTime Date, int Age, int Height, DateTime BirthDate, string BirthPlace)
         {
-            this.id = id;
-            this.fullname = fullname;
-            this.date = date;
-            this.age = age;
-            this.height = height;
-            this.birthdate = birthdate;
-            this.birthplace = birthplace;
+            this.ID = ID;
+            this.FullName = FullName;
+            this.Date = Date;
+            this.Age = Age;
+            this.Height = Height;
+            this.BirthDate = BirthDate;
+            this.BirthPlace = BirthPlace;
         }
 
         #endregion
@@ -77,64 +71,54 @@ namespace Notebook_structures
         #region Свойства
         public int ID
         {
-            get { return this.id; }
-            set { this.id = value; }
+            get;
+            set;
         }
 
         public string FullName
         {
-            get { return this.fullname; }
-            set { this.fullname = value; }
+            get;
+            set;
         }
 
         public DateTime Date
         {
-            get { return this.date; }
-            set { this.date = value; }
+            get;
+            set;
         }
 
         public int Age
         {
-            get { return this.age; }
-            set { this.age = value; }
+            get;
+            set;
         }
 
         public int Height
         {
-            get { return this.height; }
-            set { this.height = value; }
+            get;
+            set;
         }
 
         public DateTime BirthDate
         {
-            get { return this.birthdate; }
-            set { this.birthdate = value; }
+            get;
+            set;
         }
 
         public string BirthPlace
         {
-            get { return this.birthplace; }
-            set { this.birthplace = value; }
+            get;
+            set;
         }
 
         #endregion
 
         #region Методы
-        //public string PrintConsole()
-        //{
-        //    return $"{ID,5} {FullName,16} {Date,12:d} {Age,8} {Height,6} {BirthDate,15:d} {BirthPlace,16}";
-        //}
-
-        //public string PrintFile()
-        //{
-        //    return $"{ID},{FullName},{Date:d},{Age},{Height},{BirthDate:d},{BirthPlace}";
-        //}
-
         /// <summary>
         /// Вывод данных о работнике в файл с запятыми
         /// </summary>
         /// <returns>Возвращает строку с данными о работнике, разделенными запятыми</returns>
-        public new string ToStringFile()
+        public string ToString()
         {
             return $"{ID},{FullName},{Date:d},{Age},{Height},{BirthDate:d},{BirthPlace}";
         }
@@ -143,7 +127,7 @@ namespace Notebook_structures
         /// Вывод данных о работнике в консоль без запятых
         /// </summary>
         /// <returns>Возвращает строку с данными о работнике, разделенными пробелами</returns>
-        public new string ToStringConsole()
+        public string ToStringConsole()
         {
             return $"{ID,-7}{FullName,-15}{Date,-15:d}{Age,-7}{Height,-7}{BirthDate,-15:d}{BirthPlace,-20}";
         }

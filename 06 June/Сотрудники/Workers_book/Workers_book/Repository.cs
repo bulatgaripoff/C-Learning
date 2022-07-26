@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace Notebook_structures
@@ -26,7 +24,7 @@ namespace Notebook_structures
         private string[] titles = {"ID", "ФИО", "Дата записи", "Возраст", "Рост", "Дата рождения", "Место рождения"};
 
         /// <summary>
-        /// ХЗ что такое
+        /// Конструктор репозитория
         /// </summary>
         public Repository(string Path)
         {
@@ -51,6 +49,8 @@ namespace Notebook_structures
             DateTime Date=DateTime.Now;
             Console.WriteLine("Формат ввода: ФИО, возраст, рост, дата рождения, место рождения");
             string[] args = Console.ReadLine().Split(',');
+
+            // разбить на два действия, сделать проверку на входные данные
             this.workers.Add(new Worker(id, args[0], Date, Convert.ToInt32(args[1]), Convert.ToInt32(args[2]), Convert.ToDateTime(args[3]), args[4]));
         }
 
@@ -61,8 +61,8 @@ namespace Notebook_structures
         {
             Console.WriteLine("Введите ID работника, которого необходимо удалить:");
             int.TryParse(Console.ReadLine(), out int id);
-            Worker to_delete = workers.Find(item => item.ID==id);
-            workers.Remove(to_delete);
+            int to_delete = workers.FindIndex(item => item.ID==id);
+            workers.RemoveAt(to_delete);
         }
 
         /// <summary>
@@ -72,21 +72,17 @@ namespace Notebook_structures
         {
             if (File.Exists(path))
             {
-                using (StreamReader sr = new StreamReader(this.path))
+                using (StreamReader ContentStream = new StreamReader(this.path))
                 {
-                    while (!sr.EndOfStream)
+                    while (!ContentStream.EndOfStream)
                     {
-                        string[] args = sr.ReadLine().Split(',');
+                        string[] args = ContentStream.ReadLine().Split(',');
                         Add_from_file(new Worker(Convert.ToInt32(args[0]), args[1], Convert.ToDateTime(args[2]), Convert.ToInt32(args[3]), Convert.ToInt32(args[4]), Convert.ToDateTime(args[5]), args[6]));
                     }
                 }
             }
             else
             {
-                //foreach (string title in titles)
-                //{
-                //    Console.Write($"{title} ");
-                //}
                 Console.WriteLine("Файл отсутствует!");
             }
         }
@@ -94,11 +90,11 @@ namespace Notebook_structures
         /// <summary>
         /// Методы для вывода в консоль заголовков
         /// </summary>
-        public void PrintTitles()
+        public void PrintTitles() // поправить - вынести в массив форматирование
         {
             for (int i=0; i<titles.Length; i++)
             {
-                if (i==0 | i==3 | i==4)
+                if (i==0 || i==3 || i==4)
                 {
                     Console.Write($"{titles[i],-5} ");
                 }    
@@ -130,11 +126,11 @@ namespace Notebook_structures
         /// </summary>
         public void FileSave()
         {
-            using (StreamWriter sw = new StreamWriter(this.path, false, Encoding.UTF8))
+            using (StreamWriter WritingStream = new StreamWriter(path, false, Encoding.UTF8))
             {
                 foreach (Worker worker in workers)
                 {
-                    sw.WriteLine(worker.ToStringFile());
+                    WritingStream.WriteLine(worker.ToString());
                 }
             }
         }
@@ -142,9 +138,7 @@ namespace Notebook_structures
         /// <summary>
         /// Метод сортировки списка
         /// </summary>
-        /// <param name="Mode">1 - по ID; 2 - по имени; 3 - по дате добавления; 4 - по возрасту; 
-        /// 5 - по росту; 6 - по дате рождения; 7 - по месту рождения</param>
-        public void Sort()
+        public void Sort() // переделать метод
         {
             Console.WriteLine("Выберите поле для сортировки: 1 - по ID; 2 - по имени; 3 - по дате добавления; 4 - по возрасту; " +
                 "\n5 - по росту; 6 - по дате рождения; 7 - по месту рождения");
@@ -193,7 +187,7 @@ namespace Notebook_structures
         /// <summary>
         /// Свойство для вызова числа записей в репозитории
         /// </summary>
-        public int Count { get { return this.workers.Count; } }
+        public int Count { get { return workers.Count; } }
 
     }
 }
