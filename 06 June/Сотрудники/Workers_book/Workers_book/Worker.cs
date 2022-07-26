@@ -133,7 +133,7 @@ namespace Notebook_structures
         /// <summary>
         /// Вывод данных о работнике в файл с запятыми
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Возвращает строку с данными о работнике, разделенными запятыми</returns>
         public new string ToStringFile()
         {
             return $"{ID},{FullName},{Date:d},{Age},{Height},{BirthDate:d},{BirthPlace}";
@@ -142,7 +142,7 @@ namespace Notebook_structures
         /// <summary>
         /// Вывод данных о работнике в консоль без запятых
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Возвращает строку с данными о работнике, разделенными пробелами</returns>
         public new string ToStringConsole()
         {
             return $"{ID,-7}{FullName,-15}{Date,-15:d}{Age,-7}{Height,-7}{BirthDate,-15:d}{BirthPlace,-20}";
