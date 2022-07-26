@@ -131,7 +131,7 @@ namespace Notebook_structures
         //}
 
         /// <summary>
-        /// Вывод данных о работнике в файл
+        /// Вывод данных о работнике в файл с запятыми
         /// </summary>
         /// <returns></returns>
         public new string ToStringFile()
@@ -140,7 +140,7 @@ namespace Notebook_structures
         }
 
         /// <summary>
-        /// Вывод данных о работнике в консоль
+        /// Вывод данных о работнике в консоль без запятых
         /// </summary>
         /// <returns></returns>
         public new string ToStringConsole()
