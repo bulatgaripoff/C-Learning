@@ -130,11 +130,19 @@ namespace Notebook_structures
         //    return $"{ID},{FullName},{Date:d},{Age},{Height},{BirthDate:d},{BirthPlace}";
         //}
 
+        /// <summary>
+        /// Вывод данных о работнике в файл
+        /// </summary>
+        /// <returns></returns>
         public new string ToStringFile()
         {
-            return $"{ID, 4},{FullName, 15},{Date, 15:d},{Age, 4},{Height, 4},{BirthDate, 15:d},{BirthPlace, 20}";
+            return $"{ID},{FullName},{Date:d},{Age},{Height},{BirthDate:d},{BirthPlace}";
         }
 
+        /// <summary>
+        /// Вывод данных о работнике в консоль
+        /// </summary>
+        /// <returns></returns>
         public new string ToStringConsole()
         {
             return $"{ID,-7}{FullName,-15}{Date,-15:d}{Age,-7}{Height,-7}{BirthDate,-15:d}{BirthPlace,-20}";
