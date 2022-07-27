@@ -50,8 +50,38 @@ namespace Notebook_structures
             Console.WriteLine("Формат ввода: ФИО, возраст, рост, дата рождения, место рождения");
             string[] args = Console.ReadLine().Split(',');
 
-            // разбить на два действия, сделать проверку на входные данные
-            this.workers.Add(new Worker(id, args[0], Date, Convert.ToInt32(args[1]), Convert.ToInt32(args[2]), Convert.ToDateTime(args[3]), args[4]));
+            #region Обход исключений
+            try
+            {
+                Convert.ToInt32(args[1]);
+            }
+            catch (FormatException)
+            {
+                args[1] = "0";
+            }
+
+            try
+            {
+                Convert.ToInt32(args[2]);
+            }
+            catch (FormatException)
+            {
+                args[2] = "0";
+            }
+
+            try
+            {
+                Convert.ToDateTime(args[3]);
+            }
+            catch (FormatException)
+            {
+                args[3] = "01.01.1900";
+            }
+
+            #endregion
+
+            Worker New = new Worker(id, args[0], Date, Convert.ToInt32(args[1]), Convert.ToInt32(args[2]), Convert.ToDateTime(args[3]), args[4]);
+            this.workers.Add(New);
         }
 
         /// <summary>

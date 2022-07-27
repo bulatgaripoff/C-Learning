@@ -4,45 +4,6 @@ namespace Notebook_structures
 {
     class Worker
     {
-        //#region Поля
-
-        ///// <summary>
-        ///// ID работника
-        ///// </summary>
-        //private int id;
-
-        ///// <summary>
-        ///// ФИО работника
-        ///// </summary>
-        //private string fullname;
-
-        ///// <summary>
-        ///// Дата записи
-        ///// </summary>
-        //private DateTime date;
-
-        ///// <summary>
-        ///// Возраст работника
-        ///// </summary>
-        //private int age;
-
-        ///// <summary>
-        ///// Рост работника
-        ///// </summary>
-        //private int height;
-
-        ///// <summary>
-        ///// Дата рождения работника
-        ///// </summary>
-        //private DateTime birthdate;
-
-        ///// <summary>
-        ///// Место рождения работника
-        ///// </summary>
-        //private string birthplace;
-
-        //#endregion
-
         #region Конструкторы
 
         /// <summary>
@@ -115,7 +76,7 @@ namespace Notebook_structures
 
         #region Методы
         /// <summary>
-        /// Вывод данных о работнике в файл с запятыми
+        /// Преобразование данных о сотруднике в строку
         /// </summary>
         /// <returns>Возвращает строку с данными о работнике, разделенными запятыми</returns>
         public string ToString()
