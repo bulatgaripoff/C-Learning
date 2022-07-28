@@ -21,7 +21,7 @@ namespace Notebook_structures
         /// <summary>
         /// Массив с дефолтными заголовками
         /// </summary>
-        private string[] titles = {"ID", "ФИО", "Дата записи", "Возраст", "Рост", "Дата рождения", "Место рождения"};
+        private string[] titles = { $"{"ID", -5}{"ФИО",-15}{"Дата записи", -15}{"Возраст",-10}{"Рост",-5}{"Дата рождения",-15}{"Место рождения",-20}" };
 
         /// <summary>
         /// Конструктор репозитория
@@ -50,38 +50,51 @@ namespace Notebook_structures
             Console.WriteLine("Формат ввода: ФИО, возраст, рост, дата рождения, место рождения");
             string[] args = Console.ReadLine().Split(',');
 
-            #region Обход исключений
-            try
+            if (args.Length!=5)
             {
-                Convert.ToInt32(args[1]);
+                Console.WriteLine("Неверный ввод данных! Нажмите Enter, чтобы продолжить");
+                Console.ReadKey();
             }
-            catch (FormatException)
+            else
             {
-                args[1] = "0";
-            }
+                for (int i = 0; i<args.Length; i++)
+                    args[i]=args[i].TrimStart(' ');
 
-            try
-            {
-                Convert.ToInt32(args[2]);
-            }
-            catch (FormatException)
-            {
-                args[2] = "0";
-            }
+                #region Обход исключений
+                try
+                {
+                    Convert.ToInt32(args[1]);
 
-            try
-            {
-                Convert.ToDateTime(args[3]);
-            }
-            catch (FormatException)
-            {
-                args[3] = "01.01.1900";
-            }
+                }
 
-            #endregion
+                catch (FormatException)
+                {
+                    args[1] = "0";
+                }
 
-            Worker New = new Worker(id, args[0], Date, Convert.ToInt32(args[1]), Convert.ToInt32(args[2]), Convert.ToDateTime(args[3]), args[4]);
-            this.workers.Add(New);
+                try
+                {
+                    Convert.ToInt32(args[2]);
+                }
+
+                catch (FormatException)
+                {
+                    args[2] = "0";
+                }
+
+                try
+                {
+                    Convert.ToDateTime(args[3]);
+                }
+                catch (FormatException)
+                {
+                    args[3] = "01.01.1900";
+                }
+
+                #endregion
+                Worker New = new Worker(id, args[0], Date, Convert.ToInt32(args[1]), Convert.ToInt32(args[2]), Convert.ToDateTime(args[3]), args[4]);
+                this.workers.Add(New);
+            } 
         }
 
         /// <summary>
@@ -98,7 +111,7 @@ namespace Notebook_structures
         /// <summary>
         /// Метод для загрузки записей из файла
         /// </summary>
-        public void Load()
+        public void Load() // дописать аргументы (даты)
         {
             if (File.Exists(path))
             {
@@ -120,19 +133,9 @@ namespace Notebook_structures
         /// <summary>
         /// Методы для вывода в консоль заголовков
         /// </summary>
-        public void PrintTitles() // поправить - вынести в массив форматирование
+        public void PrintTitles()
         {
-            for (int i=0; i<titles.Length; i++)
-            {
-                if (i==0 || i==3 || i==4)
-                {
-                    Console.Write($"{titles[i],-5} ");
-                }    
-                else if (i==6)
-                    Console.Write($"{titles[i],-17} ");
-                else
-                    Console.Write($"{titles[i],-14} ");
-            }
+            for (int i=0; i<titles.Length; i++) Console.Write($"{titles[i]}");
             Console.WriteLine();
         }
 
@@ -165,53 +168,66 @@ namespace Notebook_structures
             }
         }
 
-        /// <summary>
-        /// Метод сортировки списка
-        /// </summary>
-        public void Sort() // переделать метод
-        {
-            Console.WriteLine("Выберите поле для сортировки: 1 - по ID; 2 - по имени; 3 - по дате добавления; 4 - по возрасту; " +
-                "\n5 - по росту; 6 - по дате рождения; 7 - по месту рождения");
-            string Mode = Console.ReadLine();
-            switch (Mode)
-            {
-                case "1":
-                    var orderedworkers1 = from worker in workers orderby worker.ID select worker;
-                    foreach (Worker worker in orderedworkers1)
-                        Console.WriteLine(worker.ToStringConsole());
-                    break;
-                case "2":
-                    var orderedworkers2 = from worker in workers orderby worker.FullName select worker;
-                    foreach (Worker worker in orderedworkers2)
-                        Console.WriteLine(worker.ToStringConsole());
-                    break;
-                case "3":
-                    var orderedworkers3 = from worker in workers orderby worker.Date select worker;
-                    foreach (Worker worker in orderedworkers3)
-                        Console.WriteLine(worker.ToStringConsole());
-                    break;
-                case "4":
-                    var orderedworkers4 = from worker in workers orderby worker.Age select worker;
-                    foreach (Worker worker in orderedworkers4)
-                        Console.WriteLine(worker.ToStringConsole());
-                    break;
-                case "5":
-                    var orderedworkers5 = from worker in workers orderby worker.Height select worker;
-                    foreach (Worker worker in orderedworkers5)
-                        Console.WriteLine(worker.ToStringConsole());
-                    break;
-                case "6":
-                    var orderedworkers6 = from worker in workers orderby worker.BirthDate select worker;
-                    foreach (Worker worker in orderedworkers6)
-                        Console.WriteLine(worker.ToStringConsole());
-                    break;
-                case "7":
-                    var orderedworkers7 = from worker in workers orderby worker.BirthPlace select worker;
-                    foreach (Worker worker in orderedworkers7)
-                        Console.WriteLine(worker.ToStringConsole());
-                    break;
-            }
+        // Старая сортировка
+        ///// <summary>
+        ///// Метод сортировки списка
+        ///// </summary>
+        //public void Sort() // переделать метод
+        //{
+        //    Console.WriteLine("Выберите поле для сортировки: 1 - по ID; 2 - по имени; 3 - по дате добавления; 4 - по возрасту; " +
+        //        "\n5 - по росту; 6 - по дате рождения; 7 - по месту рождения");
+        //    string Mode = Console.ReadLine();
+        //    switch (Mode)
+        //    {
+        //        case "1":
+        //            var orderedworkers1 = from worker in workers orderby worker.ID select worker;
+        //            foreach (Worker worker in orderedworkers1)
+        //                Console.WriteLine(worker.ToStringConsole());
+        //            break;
+        //        case "2":
+        //            var orderedworkers2 = from worker in workers orderby worker.FullName select worker;
+        //            foreach (Worker worker in orderedworkers2)
+        //                Console.WriteLine(worker.ToStringConsole());
+        //            break;
+        //        case "3":
+        //            var orderedworkers3 = from worker in workers orderby worker.Date select worker;
+        //            foreach (Worker worker in orderedworkers3)
+        //                Console.WriteLine(worker.ToStringConsole());
+        //            break;
+        //        case "4":
+        //            var orderedworkers4 = from worker in workers orderby worker.Age select worker;
+        //            foreach (Worker worker in orderedworkers4)
+        //                Console.WriteLine(worker.ToStringConsole());
+        //            break;
+        //        case "5":
+        //            var orderedworkers5 = from worker in workers orderby worker.Height select worker;
+        //            foreach (Worker worker in orderedworkers5)
+        //                Console.WriteLine(worker.ToStringConsole());
+        //            break;
+        //        case "6":
+        //            var orderedworkers6 = from worker in workers orderby worker.BirthDate select worker;
+        //            foreach (Worker worker in orderedworkers6)
+        //                Console.WriteLine(worker.ToStringConsole());
+        //            break;
+        //        case "7":
+        //            var orderedworkers7 = from worker in workers orderby worker.BirthPlace select worker;
+        //            foreach (Worker worker in orderedworkers7)
+        //                Console.WriteLine(worker.ToStringConsole());
+        //            break;
+        //    }
                 
+        //} 
+
+        /// <summary>
+        /// Метод сортировки списка по возрастанию/убыванию даты
+        /// </summary>
+        public void SortByDate()
+        {
+            DateComparer sort = new DateComparer();
+            workers.Sort(sort);
+            foreach (Worker worker in workers)
+                Console.WriteLine(worker.ToStringConsole());
+
         }
 
         /// <summary>

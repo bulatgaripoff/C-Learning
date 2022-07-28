@@ -90,7 +90,7 @@ namespace Notebook_structures
         /// <returns>Возвращает строку с данными о работнике, разделенными пробелами</returns>
         public string ToStringConsole()
         {
-            return $"{ID,-7}{FullName,-15}{Date,-15:d}{Age,-7}{Height,-7}{BirthDate,-15:d}{BirthPlace,-20}";
+            return $"{ID,-5}{FullName,-15}{Date,-15:d}{Age,-10}{Height,-5}{BirthDate,-15:d}{BirthPlace,-20}";
         }
         #endregion
     }
