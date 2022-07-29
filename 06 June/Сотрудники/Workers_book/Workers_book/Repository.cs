@@ -111,7 +111,7 @@ namespace Notebook_structures
         /// <summary>
         /// Метод для загрузки записей из файла
         /// </summary>
-        public void Load() // дописать аргументы (даты)
+        public void Load()
         {
             if (File.Exists(path))
             {
@@ -142,13 +142,16 @@ namespace Notebook_structures
         /// <summary>
         /// Метод для вывода записей в консоль
         /// </summary>
-        public void PrintToConsole()
+        public void PrintToConsole(DateTime Date1, DateTime Date2)
         {
             if (workers.Capacity!=0)
             {
                 foreach (Worker worker in workers)
                 {
-                    Console.WriteLine(worker.ToStringConsole());
+                    if (worker.Date>=Date1 & worker.Date<=Date2)
+                    {
+                        Console.WriteLine(worker.ToStringConsole());
+                    }
                 }
             }
             else Console.WriteLine("Записи отсутствуют!");   
