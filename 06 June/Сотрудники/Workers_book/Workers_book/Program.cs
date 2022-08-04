@@ -70,8 +70,9 @@ namespace Notebook_structures
                         Console.WriteLine("1 - Добавить новую запись");
                         Console.WriteLine("2 - Записать в файл");
                         Console.WriteLine("3 - Удалить работника");
-                        Console.WriteLine("4 - Сортировка");
-                        Console.WriteLine("5 - Выход");
+                        Console.WriteLine("4 - Редактировать запись");
+                        Console.WriteLine("5 - Сортировка");
+                        Console.WriteLine("6 - Выход");
 
                         switch (Console.ReadLine()) // добавить дефолт
                         {
@@ -94,10 +95,17 @@ namespace Notebook_structures
                                 Console.WriteLine($"\nВсего записей: {notebook.Count}\n");
                                 break;
                             case "4":
-                                notebook.SortByDate();
+                                notebook.Edit();
+                                Console.WriteLine("Запись успешно отредактирована!");
+                                notebook.PrintTitles();
+                                notebook.PrintToConsole(date1, date2);
                                 Console.WriteLine($"\nВсего записей: {notebook.Count}\n");
                                 break;
                             case "5":
+                                notebook.SortByDate();
+                                Console.WriteLine($"\nВсего записей: {notebook.Count}\n");
+                                break;
+                            case "6":
                                 menu2 = 3;
                                 break;
                         }

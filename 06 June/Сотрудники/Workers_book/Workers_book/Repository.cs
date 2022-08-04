@@ -108,10 +108,70 @@ namespace Notebook_structures
             workers.RemoveAt(to_delete);
         }
 
+
         /// <summary>
-        /// Метод для загрузки записей из файла
+        /// Метод для редактирования записи о работнике по ID
         /// </summary>
-        public void Load()
+        public void Edit()
+        {
+            Console.WriteLine("Введите ID работника, запись которого необходимо отредактировать:");
+            int.TryParse(Console.ReadLine(), out int id);
+            int to_edit = workers.FindIndex(item => item.ID==id);
+            Console.WriteLine("Формат ввода: ФИО, возраст, рост, дата рождения, место рождения");
+            DateTime Date = DateTime.Now;
+            string[] args = Console.ReadLine().Split(',');
+            if (args.Length!=5)
+            {
+                Console.WriteLine("Неверный ввод данных! Нажмите Enter, чтобы продолжить");
+                Console.ReadKey();
+            }
+            else
+            {
+                for (int i = 0; i<args.Length; i++)
+                    args[i]=args[i].TrimStart(' ');
+
+                #region Обход исключений
+                try
+                {
+                    Convert.ToInt32(args[1]);
+
+                }
+
+                catch (FormatException)
+                {
+                    args[1] = "0";
+                }
+
+                try
+                {
+                    Convert.ToInt32(args[2]);
+                }
+
+                catch (FormatException)
+                {
+                    args[2] = "0";
+                }
+
+                try
+                {
+                    Convert.ToDateTime(args[3]);
+                }
+                catch (FormatException)
+                {
+                    args[3] = "01.01.1900";
+                }
+
+                #endregion
+                Worker New = new Worker(to_edit, args[0], Date, Convert.ToInt32(args[1]), Convert.ToInt32(args[2]), Convert.ToDateTime(args[3]), args[4]);
+                workers.RemoveAt(to_edit);
+                this.workers.Insert(to_edit, New);
+            }
+        }
+
+            /// <summary>
+            /// Метод для загрузки записей из файла
+            /// </summary>
+            public void Load()
         {
             if (File.Exists(path))
             {
