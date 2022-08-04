@@ -19,6 +19,69 @@ namespace Repeats_checking
 {
     internal class Program
     {
+        /// <summary>
+        /// Загрузка коллекции из файла
+        /// </summary>
+        /// <param name="path">Путь к файлу</param>
+        /// <returns>Коллекция чисел</returns>
+        static HashSet<int> Load(string path)
+        {
+            HashSet<int> HashCollection = new HashSet<int>();
+            using (StreamReader sr = new StreamReader(path))
+            {
+                while (!sr.EndOfStream)
+                {
+                    string[] string_num = sr.ReadLine().Split(',');
+                    int[] int_num = new int[string_num.Length];
+                    for (int i = 0; i < string_num.Length; i++)
+                    {
+                        int_num[i]=int.Parse(string_num[i]);
+                        HashCollection.Add(int.Parse(string_num[i]));
+                    }
+                }
+            }
+
+            return HashCollection;
+        }
+
+        /// <summary>
+        /// Выводит на экран коллекцию чисел
+        /// </summary>
+        /// <param name="HashCollection">Коллекция чисел</param>
+        static void PrintHash(HashSet<int> HashCollection)
+        {
+            foreach (int num in HashCollection)
+            {
+                Console.Write($"{num} ");
+            }
+        }
+
+        /// <summary>
+        /// Добавляет в коллекцию новое число
+        /// </summary>
+        /// <param name="path">Путь к файлу</param>
+        /// <param name="HashCollection">Коллекция чисел</param>
+        static void AddHash(string path, HashSet<int> HashCollection)
+        {
+            Console.WriteLine("Введите число:");
+            int.TryParse(Console.ReadLine(), out int Number);
+            int number = Number;
+            if (HashCollection.Contains(number))
+                Console.WriteLine("Коллекция уже содержит данное число!");
+            else
+            {
+                HashCollection.Add(number);
+                Console.WriteLine("Число успешно добавлено в коллекцию!");
+            }
+            using (StreamWriter WritingStream = new StreamWriter(path, true, Encoding.UTF8))
+            {
+                foreach (int num in HashCollection)
+                {
+                    WritingStream.Write($",{num}");
+                }
+            }
+        }
+
         static void Main(string[] args)
         {
             
@@ -30,54 +93,18 @@ namespace Repeats_checking
                 Console.WriteLine("1 - просмотр чисел");
                 Console.WriteLine("2 - добавить число");
                 Console.WriteLine("3 - выход");
-
-                HashSet<int> Numbers_collection = new HashSet<int>();
+                
+                Load(path);
 
                 switch (Console.ReadLine())
                 {
                     case "1":
-                        Console.Clear();
-                        using (StreamReader ContentStream = new StreamReader(path))
-                        {
-                            while (!ContentStream.EndOfStream)
-                            {
-                                string[] Numbers_string = ContentStream.ReadLine().Split(',');
-                                int[] Numbers = new int[Numbers_string.Length];
-                                for (int i = 0; i < Numbers_string.Length; i++)
-                                {
-                                    Numbers[i]=int.Parse(Numbers_string[i]);
-                                    Numbers_collection.Add(int.Parse(Numbers_string[i]));
-                                }
-                            }
-                            foreach (int num in Numbers_collection)
-                            {
-                                Console.Write($"{num} ");
-                            }
-
-                            Console.WriteLine();
-                        }
+                        PrintHash(Load(path));
+                        Console.WriteLine();
                         break;
 
                     case "2":
-                        Console.Clear();
-                        Console.WriteLine("Введите число:");
-                        int.TryParse(Console.ReadLine(), out int Number);
-                        int number = Number;
-                        if (Numbers_collection.Contains(number)==true)
-                            Console.WriteLine("Коллекция уже содержит данное число!");
-                        else
-                        {
-                            Numbers_collection.Add(number);
-                            Console.WriteLine("Число успешно добавлено в коллекцию!");
-                        }
-
-                        using (StreamWriter WritingStream = new StreamWriter(path, true, Encoding.UTF8))
-                        {
-                            foreach (int num in Numbers_collection)
-                            {
-                                WritingStream.Write($",{num}");
-                            }
-                        }
+                        AddHash(path, Load(path));
                         break;
 
                     case "3":
