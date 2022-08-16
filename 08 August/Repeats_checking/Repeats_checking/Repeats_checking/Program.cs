@@ -29,16 +29,16 @@ namespace Repeats_checking
             HashSet<int> HashCollection = new HashSet<int>();
             using (StreamReader sr = new StreamReader(path))
             {
-                while (!sr.EndOfStream)
-                {
+                //while (!sr.EndOfStream)
+                //{
                     string[] string_num = sr.ReadLine().Split(',');
-                    int[] int_num = new int[string_num.Length];
+                    //int[] int_num = new int[string_num.Length];
                     for (int i = 0; i < string_num.Length; i++)
                     {
-                        int_num[i]=int.Parse(string_num[i]);
+                        //int_num[i]=int.Parse(string_num[i]);
                         HashCollection.Add(int.Parse(string_num[i]));
                     }
-                }
+                //}
             }
 
             return HashCollection;
@@ -61,19 +61,19 @@ namespace Repeats_checking
         /// </summary>
         /// <param name="path">Путь к файлу</param>
         /// <param name="HashCollection">Коллекция чисел</param>
-        static void AddHash(string path, HashSet<int> HashCollection)
+        static void AddHash(string path, HashSet<int> HashCollection) // поправить название
         {
             Console.WriteLine("Введите число:");
             int.TryParse(Console.ReadLine(), out int Number);
             int number = Number;
-            if (HashCollection.Contains(number))
-                Console.WriteLine("Коллекция уже содержит данное число!");
-            else
-            {
-                HashCollection.Add(number);
-                Console.WriteLine("Число успешно добавлено в коллекцию!");
-            }
-            using (StreamWriter WritingStream = new StreamWriter(path, true, Encoding.UTF8))
+            bool flag = HashCollection.Add(number);
+
+            if (flag) Console.WriteLine("Число успешно добавлено в коллекцию!");
+
+            else Console.WriteLine("Коллекция уже содержит данное число!");
+
+
+            using (StreamWriter WritingStream = new StreamWriter(path, true, Encoding.UTF8)) // сделать в отдельный метод
             {
                 foreach (int num in HashCollection)
                 {
@@ -94,17 +94,17 @@ namespace Repeats_checking
                 Console.WriteLine("2 - добавить число");
                 Console.WriteLine("3 - выход");
                 
-                Load(path);
+                HashSet<int> Numbers_collection = Load(path);
 
                 switch (Console.ReadLine())
                 {
                     case "1":
-                        PrintHash(Load(path));
+                        PrintHash(Numbers_collection);
                         Console.WriteLine();
                         break;
 
                     case "2":
-                        AddHash(path, Load(path));
+                        AddHash(path, Numbers_collection);
                         break;
 
                     case "3":

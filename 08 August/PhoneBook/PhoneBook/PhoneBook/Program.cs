@@ -32,8 +32,8 @@ namespace PhoneBook
                 Console.Clear();
                 Console.WriteLine("1-Ввести запись; 2-Поиск абонента");
                 
-                string mode = Console.ReadLine();
-                switch (mode)
+                string menu_selector = Console.ReadLine();
+                switch (menu_selector)
                 {
                     case "1":
                         Console.Clear();
@@ -42,10 +42,10 @@ namespace PhoneBook
                         Console.WriteLine("Введите ФИО абонента:");
                         string value = Console.ReadLine();
                         PhoneBook.Add(key, value);
-
+                        // ввести проверки
                         int menu2 = 1;
 
-                        do
+                        do // убрать вложенное меню
                         {
                             Console.WriteLine("1 - Добавить новую запись");
                             Console.WriteLine("2 - Выход в главное меню");
@@ -69,13 +69,13 @@ namespace PhoneBook
                     case "2":
                         Console.WriteLine("Введите номер абонента:");
                         string search_key = Console.ReadLine();
-                        var exist_number = PhoneBook.ContainsKey(search_key);
+                        bool exist_number = PhoneBook.ContainsKey(search_key);
                         if (exist_number==true)
                         {
                             Console.WriteLine(PhoneBook[search_key]);
                         }
                         else Console.WriteLine("Такой номер отсутствует!");
-
+                        // сделать с помощью TryGetValue
                         int menu3 = 1;
 
                         do
@@ -87,7 +87,7 @@ namespace PhoneBook
                                 case "1":
                                     Console.WriteLine("Введите номер абонента:");
                                     string new_search_key = Console.ReadLine();
-                                    var new_exist_number = PhoneBook.ContainsKey(search_key);
+                                    bool new_exist_number = PhoneBook.ContainsKey(search_key);
                                     if (new_exist_number==true)
                                     {
                                         Console.WriteLine(PhoneBook[new_search_key]);
